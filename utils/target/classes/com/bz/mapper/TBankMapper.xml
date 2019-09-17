@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bz.mapper.TBankMapper" >
+  <resultMap id="BaseResultMap" type="com.bz.pojo.TBank" >
+    <id column="bank_id" property="bankId" jdbcType="INTEGER" />
+    <result column="bank_no" property="bankNo" jdbcType="VARCHAR" />
+    <result column="bank_type" property="bankType" jdbcType="INTEGER" />
+    <result column="bank_belong" property="bankBelong" jdbcType="INTEGER" />
+    <result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+    <result column="bank_money" property="bankMoney" jdbcType="DOUBLE" />
+    <result column="bank_date" property="bankDate" jdbcType="DATE" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+  </resultMap>
+  
+        
+  <update id="updateTBankMoney" >
+      UPDATE t_bank set bank_money = (bank_money + #{param2} ) WHERE bank_no = #{param1}
+
+  </update>
+      
+  
+  
+  
+  
+  
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    bank_id, bank_no, bank_type, bank_belong, bank_name, bank_money, bank_date, user_id
+  </sql>
+
+  <select id="showSevenNewCart" parameterType="date" resultType="EAResult" >
+
+        SELECT count(bank_id) total, bank_date data FROM t_bank where bank_date >= #{0} GROUP BY bank_date
+  </select>
+
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.bz.pojo.TBankExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_bank
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_bank
+    where bank_id = #{bankId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_bank
+    where bank_id = #{bankId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bz.pojo.TBankExample" >
+    delete from t_bank
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.bz.pojo.TBank" >
+    insert into t_bank (bank_id, bank_no, bank_type, 
+      bank_belong, bank_name, bank_money, 
+      bank_date, user_id)
+    values (#{bankId,jdbcType=INTEGER}, #{bankNo,jdbcType=VARCHAR}, #{bankType,jdbcType=INTEGER}, 
+      #{bankBelong,jdbcType=INTEGER}, #{bankName,jdbcType=VARCHAR}, #{bankMoney,jdbcType=DOUBLE}, 
+      #{bankDate,jdbcType=DATE}, #{userId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bz.pojo.TBank" >
+    insert into t_bank
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bankId != null" >
+        bank_id,
+      </if>
+      <if test="bankNo != null" >
+        bank_no,
+      </if>
+      <if test="bankType != null" >
+        bank_type,
+      </if>
+      <if test="bankBelong != null" >
+        bank_belong,
+      </if>
+      <if test="bankName != null" >
+        bank_name,
+      </if>
+      <if test="bankMoney != null" >
+        bank_money,
+      </if>
+      <if test="bankDate != null" >
+        bank_date,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bankId != null" >
+        #{bankId,jdbcType=INTEGER},
+      </if>
+      <if test="bankNo != null" >
+        #{bankNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankType != null" >
+        #{bankType,jdbcType=INTEGER},
+      </if>
+      <if test="bankBelong != null" >
+        #{bankBelong,jdbcType=INTEGER},
+      </if>
+      <if test="bankName != null" >
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankMoney != null" >
+        #{bankMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="bankDate != null" >
+        #{bankDate,jdbcType=DATE},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bz.pojo.TBankExample" resultType="java.lang.Integer" >
+    select count(*) from t_bank
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_bank
+    <set >
+      <if test="record.bankId != null" >
+        bank_id = #{record.bankId,jdbcType=INTEGER},
+      </if>
+      <if test="record.bankNo != null" >
+        bank_no = #{record.bankNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankType != null" >
+        bank_type = #{record.bankType,jdbcType=INTEGER},
+      </if>
+      <if test="record.bankBelong != null" >
+        bank_belong = #{record.bankBelong,jdbcType=INTEGER},
+      </if>
+      <if test="record.bankName != null" >
+        bank_name = #{record.bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankMoney != null" >
+        bank_money = #{record.bankMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.bankDate != null" >
+        bank_date = #{record.bankDate,jdbcType=DATE},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_bank
+    set bank_id = #{record.bankId,jdbcType=INTEGER},
+      bank_no = #{record.bankNo,jdbcType=VARCHAR},
+      bank_type = #{record.bankType,jdbcType=INTEGER},
+      bank_belong = #{record.bankBelong,jdbcType=INTEGER},
+      bank_name = #{record.bankName,jdbcType=VARCHAR},
+      bank_money = #{record.bankMoney,jdbcType=DOUBLE},
+      bank_date = #{record.bankDate,jdbcType=DATE},
+      user_id = #{record.userId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bz.pojo.TBank" >
+    update t_bank
+    <set >
+      <if test="bankNo != null" >
+        bank_no = #{bankNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankType != null" >
+        bank_type = #{bankType,jdbcType=INTEGER},
+      </if>
+      <if test="bankBelong != null" >
+        bank_belong = #{bankBelong,jdbcType=INTEGER},
+      </if>
+      <if test="bankName != null" >
+        bank_name = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankMoney != null" >
+        bank_money = #{bankMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="bankDate != null" >
+        bank_date = #{bankDate,jdbcType=DATE},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where bank_id = #{bankId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bz.pojo.TBank" >
+    update t_bank
+    set bank_no = #{bankNo,jdbcType=VARCHAR},
+      bank_type = #{bankType,jdbcType=INTEGER},
+      bank_belong = #{bankBelong,jdbcType=INTEGER},
+      bank_name = #{bankName,jdbcType=VARCHAR},
+      bank_money = #{bankMoney,jdbcType=DOUBLE},
+      bank_date = #{bankDate,jdbcType=DATE},
+      user_id = #{userId,jdbcType=INTEGER}
+    where bank_id = #{bankId,jdbcType=INTEGER}
+  </update>
+</mapper>
