@@ -41,7 +41,11 @@
             <scope>test</scope>
         </dependency>
         <!-- Spring Boot End -->
-
+        <!--链路追踪-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zipkin</artifactId>
+        </dependency>
         <!-- Spring Cloud Begin -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -56,7 +60,10 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-netflix-hystrix-dashboard</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
         <!-- Spring Cloud End -->
 
         <!-- 解决 thymeleaf 模板引擎一定要执行严格的 html5 格式校验问题 -->

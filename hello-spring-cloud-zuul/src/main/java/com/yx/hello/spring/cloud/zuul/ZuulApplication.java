@@ -7,6 +7,8 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 
 /**
  * 服务网关 zuul
+ https://github.com/ZXinYu2987/takeOutTwo.git
+
  */
 @SpringBootApplication
 @EnableEurekaClient

@@ -25,7 +25,11 @@
             <scope>test</scope>
         </dependency>
         <!-- Spring Boot End -->
-
+        <!--链路追踪-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zipkin</artifactId>
+        </dependency>
         <!-- Spring Cloud Begin -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -40,7 +44,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.yx.hello.spring.cloud.service.admin.ServiceAdminApplication</mainClass>
+                    <mainClass>com.yx.hello.spring.cloud.admin.ServiceAdminApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>
